@@ -1,6 +1,6 @@
 # capstone-project
 
-Nerdy-Blog 🤖
+# Nerdy-Blog 🤖
 
 Nerdy-Blog vuole essere una piattaforma interattiva per gli appassionati
 di libri, comics, gaming, attualità, ecc. 📚🎮
