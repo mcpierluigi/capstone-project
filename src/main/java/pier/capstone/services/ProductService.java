@@ -29,7 +29,7 @@ public class ProductService {
 	//CREATE
 	public Product createProductForUsersLibrary(User user, ProductPayload p) 
 	throws NotFoundException {
-		Product newProduct = new Product(p.getProductName(), p.getDescription(), p.getLinkToBuy(), p.getCategory(), p.getProdcutImage());
+		Product newProduct = new Product(p.getProductName(), p.getBrand(), p.getDescription(), p.getLinkToBuy(), p.getCategory(), p.getProdcutImage());
 		Product savedProduct = productRepo.save(newProduct);
 		user.addProduct(savedProduct);
 			return productRepo.save(newProduct);
@@ -62,11 +62,17 @@ public class ProductService {
 		if(!foundProduct.getUser().getUserId().equals(authenticatedUser.getUserId())
 				&& !authenticatedUser.getRole().equals(UserRole.USER)) {
 			throw new UnauthorizedException("Unauthorized user!");
-			}
+		}
 		foundProduct.setProductId(id);
 		foundProduct.setProductName(p.getProductName());
 		foundProduct.setDescription(p.getDescription());
 		foundProduct.setLinkToBuy(p.getLinkToBuy());
 		return productRepo.save(foundProduct);
+	}
+	
+	//DELETE PRODUCT
+	public void findProductByIdAndDelete(UUID id) throws NotFoundException {
+		Product foundProduct = this.findProductById(id);
+		productRepo.delete(foundProduct);
 	}
 }

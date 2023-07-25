@@ -80,13 +80,13 @@ public class PostService {
 		if(!foundPost.getUser().getUserId().equals(authenticatedUser.getUserId())
 			&& !authenticatedUser.getRole().equals(UserRole.USER)) {
 				throw new UnauthorizedException("Unauthorized user!");
-			}
+		}
 		foundPost.setPostId(id);
 		foundPost.setTitle(p.getTitle());
 		foundPost.setContent(p.getContent());
 		foundPost.setCategory(p.getCategory());
 		return postRepo.save(foundPost);
-		}
+	}
 	
 	public Post findPostWithProductByIdAndUpdate(UUID id, PostWithProductPayload p, Authentication authentication) {
 		Post foundPost = this.findPostById(id);
@@ -95,12 +95,18 @@ public class PostService {
 		if(!foundPost.getUser().getUserId().equals(authenticatedUser.getUserId())
 			&& !authenticatedUser.getRole().equals(UserRole.USER)) {
 				throw new UnauthorizedException("Unauthorized user!");
-			}
+		}
 		foundPost.setPostId(id);
 		foundPost.setProduct(p.getProduct());
 		foundPost.setTitle(p.getTitle());
 		foundPost.setContent(p.getContent());
 		foundPost.setCategory(p.getCategory());
 		return postRepo.save(foundPost);
-		}
+	}
+	
+	//DELETE POST
+	public void findPostByIdAndDelete(UUID id) throws NotFoundException {
+		Post foundPost = this.findPostById(id);
+		postRepo.delete(foundPost);
+	}
 }

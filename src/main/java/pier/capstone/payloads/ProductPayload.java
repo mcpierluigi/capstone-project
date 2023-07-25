@@ -5,6 +5,6 @@ import pier.capstone.utils.NerdyCategory;
 
 @Data
 public class ProductPayload {
-	private String productName, description, linkToBuy, prodcutImage;
+	private String productName, brand, description, linkToBuy, prodcutImage;
 	private NerdyCategory category;
 }

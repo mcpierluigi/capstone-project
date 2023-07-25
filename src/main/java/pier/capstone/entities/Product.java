@@ -26,7 +26,7 @@ public class Product {
 	@Id
 	@GeneratedValue
 	private UUID productId;
-	private String productName, description, linkToBuy, productImage;
+	private String productName, brand, description, linkToBuy, productImage;
 	
 	@Enumerated(EnumType.STRING)
 	private NerdyCategory category;
@@ -38,9 +38,10 @@ public class Product {
 	@ManyToOne
 	private User user;
 	
-	public Product(String productName, String description, String linkToBuy, NerdyCategory category, String productImage) {
+	public Product(String productName, String brand, String description, String linkToBuy, NerdyCategory category, String productImage) {
 		super();
 		this.productName = productName;
+		this.brand = brand;
 		this.description = description;
 		this.linkToBuy = linkToBuy;
 		this.category = category;
