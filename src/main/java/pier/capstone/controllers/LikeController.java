@@ -26,9 +26,9 @@ public class LikeController {
 		return likeService.createLikeForPost(like, userId, postId);
 	}
 	
-	@PostMapping("/{userId}/{libraryId}")
-	public Like createLikeLibrary(@RequestBody Like like, @PathVariable("userId") UUID userId, @PathVariable("libraryId") UUID libraryId) throws NotFoundException {
-		return likeService.createLikeForLibrary(like, userId, libraryId);
+	@PostMapping("/{userId}/{productId}")
+	public Like createLikeLibrary(@RequestBody Like like, @PathVariable("userId") UUID userId, @PathVariable("productId") UUID productId) throws NotFoundException {
+		return likeService.createLikeForLibrary(like, userId, productId);
 	}
 	
 	@DeleteMapping("/{userId}/{postId}")
@@ -36,8 +36,8 @@ public class LikeController {
 		likeService.deleteLikeFromPost(userId, postId);
 	}
 	
-	@DeleteMapping("/{userId}/{libraryId}")
-	public void deleteLikeLibrary(@PathVariable("userId") UUID userId, @PathVariable("libraryId") UUID libraryId) throws NotFoundException {
-		likeService.deleteLikeFromLibrary(userId, libraryId);
+	@DeleteMapping("/{userId}/{productId}")
+	public void deleteLikeProduct(@PathVariable("userId") UUID userId, @PathVariable("productId") UUID productId) throws NotFoundException {
+		likeService.deleteLikeFromProduct(userId, productId);
 	}
 }

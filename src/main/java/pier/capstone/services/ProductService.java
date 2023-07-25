@@ -11,7 +11,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import pier.capstone.entities.Library;
 import pier.capstone.entities.Product;
 import pier.capstone.entities.User;
 import pier.capstone.exceptions.NotFoundException;
@@ -28,9 +27,11 @@ public class ProductService {
 	private ProductRepository productRepo;
 	
 	//CREATE
-	public Product createProduct(ProductPayload p, Library library) {
+	public Product createProductForUsersLibrary(User user, ProductPayload p) 
+	throws NotFoundException {
 		Product newProduct = new Product(p.getProductName(), p.getDescription(), p.getLinkToBuy(), p.getCategory(), p.getProdcutImage());
-		library.addProduct(newProduct);
+		Product savedProduct = productRepo.save(newProduct);
+		user.addProduct(savedProduct);
 			return productRepo.save(newProduct);
 	}
 	
@@ -58,8 +59,8 @@ public class ProductService {
 	public Product findProductByIdAndUpdate(UUID id, ProductPayload p, Authentication authentication) {
 		Product foundProduct = this.findProductById(id);
 		User authenticatedUser = (User) authentication.getPrincipal();
-		if(!foundProduct.getLibrary().getUser().getUserId().equals(authenticatedUser.getUserId())
-				&& !authenticatedUser.getRole().equals(UserRole.ADMIN)) {
+		if(!foundProduct.getUser().getUserId().equals(authenticatedUser.getUserId())
+				&& !authenticatedUser.getRole().equals(UserRole.USER)) {
 			throw new UnauthorizedException("Unauthorized user!");
 			}
 		foundProduct.setProductId(id);

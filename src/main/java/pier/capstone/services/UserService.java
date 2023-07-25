@@ -49,6 +49,11 @@ public class UserService {
 	public User findUserById(UUID id) throws NotFoundException {
 		return userRepo.findById(id).orElseThrow(() -> new NotFoundException("User not found!"));
 	}
+	
+	//FIND BY USERNAME
+	public User findUserByUsername(String username) throws NotFoundException {
+		return userRepo.findUserByUsername(username).orElseThrow(() -> new NotFoundException("User not found!"));
+	}
 	 
 	//UPDATE USER
 	public User findUserByIdAndUpdate(UUID id, UserRegistrationPayload u) throws NotFoundException {
@@ -62,5 +67,8 @@ public class UserService {
 		foundUser.setProfileImage(u.getProfileImage());
 		return userRepo.save(foundUser);
 	}
-		
+	
+	public User findUserByEmail(String email) throws NotFoundException {
+		return userRepo.findUserByEmail(email).orElseThrow(() -> new NotFoundException("User not found!"));
+	}	
 }

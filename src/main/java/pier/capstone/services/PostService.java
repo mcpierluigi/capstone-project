@@ -78,7 +78,7 @@ public class PostService {
 		User authenticatedUser = (User) authentication.getPrincipal();
 		//AUTH
 		if(!foundPost.getUser().getUserId().equals(authenticatedUser.getUserId())
-			&& !authenticatedUser.getRole().equals(UserRole.ADMIN)) {
+			&& !authenticatedUser.getRole().equals(UserRole.USER)) {
 				throw new UnauthorizedException("Unauthorized user!");
 			}
 		foundPost.setPostId(id);
@@ -93,7 +93,7 @@ public class PostService {
 		User authenticatedUser = (User) authentication.getPrincipal();
 		//AUTH
 		if(!foundPost.getUser().getUserId().equals(authenticatedUser.getUserId())
-			&& !authenticatedUser.getRole().equals(UserRole.ADMIN)) {
+			&& !authenticatedUser.getRole().equals(UserRole.USER)) {
 				throw new UnauthorizedException("Unauthorized user!");
 			}
 		foundPost.setPostId(id);

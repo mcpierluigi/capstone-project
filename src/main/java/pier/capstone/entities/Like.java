@@ -14,7 +14,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "LIKES")
+@Table(name = "likes")
 @Data
 @NoArgsConstructor
 @JsonIgnoreProperties({"user"})
@@ -31,6 +31,6 @@ public class Like {
 	private Post post;
 	
 	@ManyToOne 
-	@JsonBackReference(value = "library_likes")
-	private Library library;
+	@JsonBackReference(value = "product_likes")
+	private Product product;
 }

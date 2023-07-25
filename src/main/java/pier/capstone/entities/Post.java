@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 import pier.capstone.utils.NerdyCategory;
 
 @Entity
-@Table(name = "POSTS")
+@Table(name = "posts")
 @Data
 @NoArgsConstructor
 public class Post {
@@ -31,7 +31,7 @@ public class Post {
 	@Enumerated(EnumType.STRING)
 	private NerdyCategory category;
 	
-	@OneToMany(mappedBy = "article")
+	@OneToMany(mappedBy = "post")
 	@JsonManagedReference(value = "post_likes")
 	private List<Like> likes;
 	

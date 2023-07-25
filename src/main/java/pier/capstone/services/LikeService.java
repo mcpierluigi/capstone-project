@@ -5,14 +5,14 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import pier.capstone.entities.Library;
 import pier.capstone.entities.Like;
 import pier.capstone.entities.Post;
+import pier.capstone.entities.Product;
 import pier.capstone.entities.User;
 import pier.capstone.exceptions.NotFoundException;
-import pier.capstone.repositories.LibraryRepository;
 import pier.capstone.repositories.LikeRepository;
 import pier.capstone.repositories.PostRepository;
+import pier.capstone.repositories.ProductRepository;
 
 @Service
 public class LikeService {
@@ -27,7 +27,7 @@ public class LikeService {
 	private PostRepository postRepo;
 	
 	@Autowired
-	private LibraryRepository libraryRepo;
+	private ProductRepository productRepo;
 	
 	//CREATE LIKE FOR POST 
 	public Like createLikeForPost(Like like, UUID userId, UUID postId) throws NotFoundException {
@@ -48,17 +48,17 @@ public class LikeService {
 	}
 	
 	//CREATE LIKE FOR LIBRARY
-	public Like createLikeForLibrary(Like like, UUID userId, UUID libraryId) throws NotFoundException {
+	public Like createLikeForLibrary(Like like, UUID userId, UUID productId) throws NotFoundException {
 		User user = userService.findUserById(userId);
-		Library library = libraryRepo.findById(libraryId).orElse(null);
+		Product product = productRepo.findById(productId).orElse(null);
 		
-		if(library != null) {
-			Like likeAlreadyExistsForLibrary = likeRepo.findLikeByUserIdAndLibraryId(userId, libraryId);
-			if (likeAlreadyExistsForLibrary != null) {
-				deleteLikeFromLibrary(userId, libraryId);
+		if(product != null) {
+			Like likeAlreadyExistsForProduct = likeRepo.findLikeByUserIdAndProductId(userId, productId);
+			if (likeAlreadyExistsForProduct != null) {
+				deleteLikeFromProduct(userId, productId);
 				return null;
 			}
-			like.setLibrary(library);	
+			like.setProduct(product);	
 			like.setUser(user);			
 			return likeRepo.save(like);
 		}
@@ -74,10 +74,10 @@ public class LikeService {
 	}
 	
 	//DELETE LIKE FOR LIBRARY
-	public void deleteLikeFromLibrary(UUID userId, UUID libraryId) {
-		Like likeForLibrary = likeRepo.findLikeByUserIdAndLibraryId(userId, libraryId);
-		if(likeForLibrary != null) {
-			likeForLibrary.getPost().getLikes().remove(likeForLibrary);
+	public void deleteLikeFromProduct(UUID userId, UUID productId) {
+		Like likeForProduct = likeRepo.findLikeByUserIdAndProductId(userId, productId);
+		if(likeForProduct != null) {
+			likeForProduct.getProduct().getLikes().remove(likeForProduct);
 		}
 	}
 }
