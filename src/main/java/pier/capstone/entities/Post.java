@@ -25,7 +25,7 @@ public class Post {
 	@Id
 	@GeneratedValue
 	private UUID postId;
-	private Product product;
+
 	private String title, content, postImage;
 	
 	@Enumerated(EnumType.STRING)
@@ -34,6 +34,9 @@ public class Post {
 	@OneToMany(mappedBy = "post")
 	@JsonManagedReference(value = "post_likes")
 	private List<Like> likes;
+	
+	@ManyToOne
+	private Product product;
 	
 	@ManyToOne
 	User user;

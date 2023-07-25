@@ -31,8 +31,8 @@ public class User implements UserDetails {
 	private String username, name, lastname, email, password, aboutMe, profileImage;
 	private UserRole role;
 	
-	@OneToMany
-	@JsonIgnoreProperties({"user", "likes"})
+	@OneToMany(mappedBy = "user")
+	@JsonIgnoreProperties({"user"})
 	private List<Product> library;
 	
 	@OneToMany(mappedBy = "user")
@@ -42,6 +42,9 @@ public class User implements UserDetails {
 	@OneToMany(mappedBy = "user")
 	@JsonIgnoreProperties({"user", "likes"})
 	private List<Like> likes;
+	
+	@OneToMany
+	private List<Post> postsAboutProduct;
 
 	public User(String username, String name, String lastname, String email, String password, String aboutMe,
 			String profileImage) {

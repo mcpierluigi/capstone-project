@@ -22,7 +22,6 @@ import pier.capstone.utils.NerdyCategory;
 @Data
 @NoArgsConstructor
 public class Product {
-
 	@Id
 	@GeneratedValue
 	private UUID productId;
@@ -31,9 +30,12 @@ public class Product {
 	@Enumerated(EnumType.STRING)
 	private NerdyCategory category;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "product")
 	@JsonManagedReference(value = "product_likes")
 	private List<Like> likes;
+	
+	@OneToMany
+	private List<Post> posts;
 	
 	@ManyToOne
 	private User user;

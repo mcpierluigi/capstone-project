@@ -13,6 +13,6 @@ import pier.capstone.utils.NerdyCategory;
 @Repository
 public interface PostRepository extends JpaRepository<Post, UUID>{
 	List<Post> findAllPostsByCategory(NerdyCategory category);
-	List<Post> findAllPostsByUsername(String username);
+	List<Post> findAllPostsByUserUsername(String username);
 	List<Post> findAllPostsByTitle(String title);
 }

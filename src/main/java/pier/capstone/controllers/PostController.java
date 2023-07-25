@@ -44,7 +44,7 @@ public class PostController {
 		return ResponseEntity.ok(posts);
 	}
 	
-	@PostMapping("")
+	@PostMapping("/simple")
 	public ResponseEntity<Post> createPost(Authentication auth, @RequestBody PostPayload p) 
 	throws UnauthorizedException {
 		User user = (User) auth.getPrincipal();
@@ -52,7 +52,7 @@ public class PostController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(newPost);
 	}
 	
-	@PostMapping("")
+	@PostMapping("/withProduct")
 	public ResponseEntity<Post> createPostWithProduct(Authentication auth, @RequestBody PostWithProductPayload p) 
 	throws UnauthorizedException {
 		User user = (User) auth.getPrincipal();

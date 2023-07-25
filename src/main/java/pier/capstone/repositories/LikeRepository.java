@@ -9,6 +9,7 @@ import pier.capstone.entities.Like;
 
 @Repository
 public interface LikeRepository extends JpaRepository <Like, UUID> {
-	Like findLikeByUserIdAndPostId(UUID userId, UUID postId);
-	Like findLikeByUserIdAndProductId(UUID userId, UUID libraryId);
+	
+	 Like findLikeByUserUserIdAndPostPostId(UUID userId, UUID postId);
+	 Like findLikeByUserUserIdAndProductProductId(UUID userId, UUID productId);
 }

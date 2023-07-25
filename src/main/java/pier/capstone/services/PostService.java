@@ -25,7 +25,7 @@ public class PostService {
 
 	@Autowired
 	private PostRepository postRepo;
-	
+
 	//CREATE POST WITH PRODUCT
 	public Post createPostWithProduct(User user, PostWithProductPayload p) {
 		Post newPost = new Post(p.getProduct(), p.getTitle(), p.getContent(), p.getCategory(), user);
@@ -64,12 +64,12 @@ public class PostService {
 	
 	//FIND ALL BY USERNAME
 	public List<Post> findAllByUsername(String username) {
-		return postRepo.findAllPostsByUsername(username);	
+		return postRepo.findAllPostsByUserUsername(username);	
 	}
 	
 	//FIND ALL BY TITLE
 	public List<Post> findAllByTitle(String title) {
-		return postRepo.findAllPostsByUsername(title);
+		return postRepo.findAllPostsByTitle(title);
 	}
 	
 	//UPDATE POST

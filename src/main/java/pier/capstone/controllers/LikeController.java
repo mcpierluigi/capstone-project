@@ -26,18 +26,18 @@ public class LikeController {
 		return likeService.createLikeForPost(like, userId, postId);
 	}
 	
-	@PostMapping("/{userId}/{productId}")
-	public Like createLikeLibrary(@RequestBody Like like, @PathVariable("userId") UUID userId, @PathVariable("productId") UUID productId) throws NotFoundException {
-		return likeService.createLikeForLibrary(like, userId, productId);
-	}
+//	@PostMapping("/{userId}/{productId}")
+//	public Like createLikeLibrary(@RequestBody Like like, @PathVariable("userId") UUID userId, @PathVariable("productId") UUID productId) throws NotFoundException {
+//		return likeService.createLikeForProduct(like, userId, productId);
+//	}
 	
 	@DeleteMapping("/{userId}/{postId}")
 	public void deleteLikePost(@PathVariable("userId") UUID userId, @PathVariable("postId") UUID postId) throws NotFoundException {
 		likeService.deleteLikeFromPost(userId, postId);
 	}
 	
-	@DeleteMapping("/{userId}/{productId}")
-	public void deleteLikeProduct(@PathVariable("userId") UUID userId, @PathVariable("productId") UUID productId) throws NotFoundException {
-		likeService.deleteLikeFromProduct(userId, productId);
-	}
+//	@DeleteMapping("/{userId}/{productId}")
+//	public void deleteLikeProduct(@PathVariable("userId") UUID userId, @PathVariable("productId") UUID productId) throws NotFoundException {
+//		likeService.deleteLikeFromProduct(userId, productId);
+//	}
 }

@@ -35,7 +35,7 @@ public class LikeService {
 		Post post = postRepo.findById(postId).orElse(null);
 		
 		if (post != null) {
-			Like likeAlreadyExistsForPost = likeRepo.findLikeByUserIdAndPostId(userId, postId);
+			Like likeAlreadyExistsForPost = likeRepo.findLikeByUserUserIdAndPostPostId(userId, postId);
 			if (likeAlreadyExistsForPost != null) {
 				deleteLikeFromPost(userId, postId);
 				return null;
@@ -48,12 +48,12 @@ public class LikeService {
 	}
 	
 	//CREATE LIKE FOR LIBRARY
-	public Like createLikeForLibrary(Like like, UUID userId, UUID productId) throws NotFoundException {
+	public Like createLikeForProduct(Like like, UUID userId, UUID productId) throws NotFoundException {
 		User user = userService.findUserById(userId);
 		Product product = productRepo.findById(productId).orElse(null);
 		
 		if(product != null) {
-			Like likeAlreadyExistsForProduct = likeRepo.findLikeByUserIdAndProductId(userId, productId);
+			Like likeAlreadyExistsForProduct = likeRepo.findLikeByUserUserIdAndProductProductId(userId, productId);
 			if (likeAlreadyExistsForProduct != null) {
 				deleteLikeFromProduct(userId, productId);
 				return null;
@@ -67,7 +67,7 @@ public class LikeService {
 	
 	//DELETE LIKE FOR POST
 	public void deleteLikeFromPost(UUID userId, UUID postId) {
-		Like likeForPost = likeRepo.findLikeByUserIdAndPostId(userId, postId);
+		Like likeForPost = likeRepo.findLikeByUserUserIdAndPostPostId(userId, postId);
 		if(likeForPost != null) {
 			likeForPost.getPost().getLikes().remove(likeForPost);
 		}
@@ -75,7 +75,7 @@ public class LikeService {
 	
 	//DELETE LIKE FOR LIBRARY
 	public void deleteLikeFromProduct(UUID userId, UUID productId) {
-		Like likeForProduct = likeRepo.findLikeByUserIdAndProductId(userId, productId);
+		Like likeForProduct = likeRepo.findLikeByUserUserIdAndProductProductId(userId, productId);
 		if(likeForProduct != null) {
 			likeForProduct.getProduct().getLikes().remove(likeForProduct);
 		}
