@@ -3,6 +3,7 @@ package pier.capstone.entities;
 import java.util.List;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
@@ -36,6 +37,7 @@ public class Post {
 	private List<Like> likes;
 	
 	@ManyToOne
+	@JsonBackReference(value = "product_posts")
 	private Product product;
 	
 	@ManyToOne

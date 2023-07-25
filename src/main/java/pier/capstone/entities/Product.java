@@ -34,7 +34,8 @@ public class Product {
 	@JsonManagedReference(value = "product_likes")
 	private List<Like> likes;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "product")
+	@JsonManagedReference(value = "product_posts")
 	private List<Post> posts;
 	
 	@ManyToOne

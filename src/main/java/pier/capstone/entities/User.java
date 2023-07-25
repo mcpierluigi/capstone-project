@@ -43,9 +43,6 @@ public class User implements UserDetails {
 	@JsonIgnoreProperties({"user", "likes"})
 	private List<Like> likes;
 	
-	@OneToMany
-	private List<Post> postsAboutProduct;
-
 	public User(String username, String name, String lastname, String email, String password, String aboutMe,
 			String profileImage) {
 		super();
