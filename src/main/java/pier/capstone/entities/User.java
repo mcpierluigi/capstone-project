@@ -11,6 +11,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -29,6 +31,8 @@ public class User implements UserDetails {
 	@GeneratedValue
 	private UUID userId;
 	private String username, name, lastname, email, password, aboutMe, profileImage;
+	
+	@Enumerated(EnumType.STRING)
 	private UserRole role;
 	
 	@OneToMany(mappedBy = "user")
@@ -53,6 +57,7 @@ public class User implements UserDetails {
 		this.password = password;
 		this.aboutMe = aboutMe;
 		this.profileImage = profileImage;
+		this.role = UserRole.USER;
 	}
 	
 	public void addPost(Post post) {

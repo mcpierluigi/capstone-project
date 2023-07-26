@@ -34,6 +34,7 @@ public class SecurityConfig {
 		http.authorizeHttpRequests(auth -> {
 	        auth.requestMatchers(HttpMethod.GET, "/users").hasAnyAuthority("USER", "ADMIN");
 	        auth.requestMatchers(HttpMethod.GET, "/users/me").hasAnyAuthority("USER", "ADMIN");
+	        auth.requestMatchers(HttpMethod.POST, "/users/**").hasAnyAuthority("USER", "ADMIN");
 	        auth.requestMatchers(HttpMethod.PUT, "/users/**").hasAnyAuthority("USER", "ADMIN");
 	        auth.requestMatchers("/users/**").hasAnyAuthority("USER", "ADMIN");
 	    });
@@ -41,6 +42,7 @@ public class SecurityConfig {
 		http.authorizeHttpRequests(auth -> {
 	        auth.requestMatchers(HttpMethod.GET, "/posts").hasAnyAuthority("USER", "ADMIN");
 	        auth.requestMatchers(HttpMethod.GET, "/posts/**").hasAnyAuthority("USER", "ADMIN");
+	        auth.requestMatchers(HttpMethod.POST, "/posts/**").hasAnyAuthority("USER", "ADMIN");
 	        auth.requestMatchers(HttpMethod.PUT, "/posts/**").hasAnyAuthority("USER", "ADMIN");
 	        auth.requestMatchers("/posts/**").hasAnyAuthority("USER", "ADMIN");
 	    });

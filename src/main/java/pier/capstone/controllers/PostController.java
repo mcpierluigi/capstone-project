@@ -24,7 +24,6 @@ import pier.capstone.entities.User;
 import pier.capstone.exceptions.NotFoundException;
 import pier.capstone.exceptions.UnauthorizedException;
 import pier.capstone.payloads.PostPayload;
-import pier.capstone.payloads.PostWithProductPayload;
 import pier.capstone.services.PostService;
 import pier.capstone.utils.NerdyCategory;
 
@@ -44,7 +43,7 @@ public class PostController {
 		return ResponseEntity.ok(posts);
 	}
 	
-	@PostMapping("/simple")
+	@PostMapping("")
 	public ResponseEntity<Post> createPost(Authentication auth, @RequestBody PostPayload p) 
 	throws UnauthorizedException {
 		User user = (User) auth.getPrincipal();
@@ -52,16 +51,8 @@ public class PostController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(newPost);
 	}
 	
-	@PostMapping("/withProduct")
-	public ResponseEntity<Post> createPostWithProduct(Authentication auth, @RequestBody PostWithProductPayload p) 
-	throws UnauthorizedException {
-		User user = (User) auth.getPrincipal();
-		Post newPost = postService.createPostWithProduct(user, p);
-		return ResponseEntity.status(HttpStatus.CREATED).body(newPost);
-	}
-	
 	@GetMapping("/search/{filter}/{key}")
-	public ResponseEntity<List<Post>> searchPosts(@PathVariable String filter, @PathVariable String key, @PathVariable NerdyCategory category) {
+	public ResponseEntity<List<Post>> searchPosts(@PathVariable String filter, @PathVariable String key, @PathVariable String category) {
 		List<Post> posts;
 		if(filter.equalsIgnoreCase("title")) {
 			posts = postService.findAllByTitle(key);

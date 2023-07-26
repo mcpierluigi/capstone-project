@@ -1,5 +1,6 @@
 package pier.capstone.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,9 +16,7 @@ import pier.capstone.entities.*;
 import pier.capstone.exceptions.NotFoundException;
 import pier.capstone.exceptions.UnauthorizedException;
 import pier.capstone.payloads.PostPayload;
-import pier.capstone.payloads.PostWithProductPayload;
 import pier.capstone.repositories.PostRepository;
-import pier.capstone.utils.NerdyCategory;
 import pier.capstone.utils.UserRole;
 
 @Service
@@ -25,18 +24,10 @@ public class PostService {
 
 	@Autowired
 	private PostRepository postRepo;
-
-	//CREATE POST WITH PRODUCT
-	public Post createPostWithProduct(User user, PostWithProductPayload p) {
-		Post newPost = new Post(p.getProduct(), p.getTitle(), p.getContent(), p.getCategory(), user);
-		Post savedPost = postRepo.save(newPost);
-		user.addPost(savedPost);
-		return savedPost;
-	}
 	
 	//CREARE POST WITHOUT PRODUCT
 	public Post createPost (User user, PostPayload p) {
-		Post newPost = new Post(p.getTitle(), p.getContent(), p.getCategory(), user);
+		Post newPost = new Post(p.getTitle(), p.getContent(), p.getPostImage() ,p.getCategory(), user, new ArrayList<>());
 		Post savedPost = postRepo.save(newPost);
 		user.addPost(savedPost);
 		return savedPost;
@@ -58,7 +49,7 @@ public class PostService {
 	}
 	
 	//FIND ALL BY CATEGORY
-	public List<Post> findAllByCategory(NerdyCategory categroy) {
+	public List<Post> findAllByCategory(String categroy) {
 		return postRepo.findAllPostsByCategory(categroy);
 	}
 	
@@ -82,22 +73,6 @@ public class PostService {
 				throw new UnauthorizedException("Unauthorized user!");
 		}
 		foundPost.setPostId(id);
-		foundPost.setTitle(p.getTitle());
-		foundPost.setContent(p.getContent());
-		foundPost.setCategory(p.getCategory());
-		return postRepo.save(foundPost);
-	}
-	
-	public Post findPostWithProductByIdAndUpdate(UUID id, PostWithProductPayload p, Authentication authentication) {
-		Post foundPost = this.findPostById(id);
-		User authenticatedUser = (User) authentication.getPrincipal();
-		//AUTH
-		if(!foundPost.getUser().getUserId().equals(authenticatedUser.getUserId())
-			&& !authenticatedUser.getRole().equals(UserRole.USER)) {
-				throw new UnauthorizedException("Unauthorized user!");
-		}
-		foundPost.setPostId(id);
-		foundPost.setProduct(p.getProduct());
 		foundPost.setTitle(p.getTitle());
 		foundPost.setContent(p.getContent());
 		foundPost.setCategory(p.getCategory());
